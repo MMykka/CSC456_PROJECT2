@@ -1,0 +1,13 @@
+<%- include('../partials/header') %>
+
+<div class="card narrow">
+  <h1>Delete Product</h1>
+  <p>Are you sure you want to delete <strong><%= product.name %></strong> (<%= product.sku %>)?
+    This cannot be undone.</p>
+  <form action="/products/<%= product._id %>?_method=DELETE" method="POST">
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a href="/products/<%= product._id %>" class="btn">Cancel</a>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>

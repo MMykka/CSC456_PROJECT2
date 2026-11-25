@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+
+<div class="page-head">
+  <h1><%= category.name %></h1>
+  <div class="actions">
+    <a href="/categories/<%= category._id %>/edit" class="btn">Edit</a>
+    <% if (user.role === 'admin') { %>
+      <a href="/categories/<%= category._id %>/delete" class="btn btn-danger">Delete</a>
+    <% } %>
+  </div>
+</div>
+
+<div class="card">
+  <p><strong>Description:</strong> <%= category.description || '-' %></p>
+</div>
+
+<!-- One-to-many: all products that belong to this category -->
+<h2>Products in this category (<%= products.length %>)</h2>
+<% if (products.length === 0) { %>
+  <p class="muted">No products in this category.</p>
+<% } else { %>
+  <table>
+    <thead><tr><th>Name</th><th>SKU</th><th>Price</th><th>Quantity</th></tr></thead>
+    <tbody>
+      <% products.forEach(function (p) { %>
+        <tr>
+          <td><a href="/products/<%= p._id %>"><%= p.name %></a></td>
+          <td><%= p.sku %></td>
+          <td>$<%= p.price.toFixed(2) %></td>
+          <td><%= p.quantity %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } %>
+
+<p><a href="/categories">&larr; Back to categories</a></p>
+
+<%- include('../partials/footer') %>

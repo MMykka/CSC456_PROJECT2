@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+
+<h1>Dashboard</h1>
+<p>Welcome, <strong><%= user.name %></strong>. You are logged in as <strong><%= user.role %></strong>.</p>
+
+<div class="stats">
+  <a href="/products" class="stat"><span class="stat-number"><%= productCount %></span>Products</a>
+  <a href="/categories" class="stat"><span class="stat-number"><%= categoryCount %></span>Categories</a>
+  <a href="/suppliers" class="stat"><span class="stat-number"><%= supplierCount %></span>Suppliers</a>
+</div>
+
+<h2>Low Stock (less than 5)</h2>
+<% if (lowStock.length === 0) { %>
+  <p class="muted">All products are well stocked.</p>
+<% } else { %>
+  <table>
+    <thead><tr><th>Product</th><th>SKU</th><th>Category</th><th>Quantity</th></tr></thead>
+    <tbody>
+      <% lowStock.forEach(function (p) { %>
+        <tr>
+          <td><a href="/products/<%= p._id %>"><%= p.name %></a></td>
+          <td><%= p.sku %></td>
+          <td><%= p.category ? p.category.name : '-' %></td>
+          <td class="low"><%= p.quantity %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } %>
+
+<%- include('partials/footer') %>

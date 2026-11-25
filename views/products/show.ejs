@@ -1,0 +1,47 @@
+<%- include('../partials/header') %>
+
+<div class="page-head">
+  <h1><%= product.name %></h1>
+  <div class="actions">
+    <a href="/products/<%= product._id %>/edit" class="btn">Edit</a>
+    <a href="/products/<%= product._id %>/suppliers" class="btn">Manage Suppliers</a>
+    <% if (user.role === 'admin') { %>
+      <a href="/products/<%= product._id %>/delete" class="btn btn-danger">Delete</a>
+    <% } %>
+  </div>
+</div>
+
+<div class="card">
+  <p><strong>SKU:</strong> <%= product.sku %></p>
+  <p><strong>Price:</strong> $<%= product.price.toFixed(2) %></p>
+  <p><strong>Quantity:</strong> <span class="<%= product.quantity < 5 ? 'low' : '' %>"><%= product.quantity %></span></p>
+  <!-- One-to-many: the category this product belongs to -->
+  <p><strong>Category:</strong>
+    <% if (product.category) { %>
+      <a href="/categories/<%= product.category._id %>"><%= product.category.name %></a>
+    <% } else { %>-<% } %>
+  </p>
+</div>
+
+<!-- Many-to-many: suppliers of this product -->
+<h2>Suppliers (<%= product.suppliers.length %>)</h2>
+<% if (product.suppliers.length === 0) { %>
+  <p class="muted">No suppliers linked. <a href="/products/<%= product._id %>/suppliers">Add suppliers</a></p>
+<% } else { %>
+  <table>
+    <thead><tr><th>Name</th><th>Email</th><th>Phone</th></tr></thead>
+    <tbody>
+      <% product.suppliers.forEach(function (s) { %>
+        <tr>
+          <td><a href="/suppliers/<%= s._id %>"><%= s.name %></a></td>
+          <td><%= s.email %></td>
+          <td><%= s.phone || '-' %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } %>
+
+<p><a href="/products">&larr; Back to products</a></p>
+
+<%- include('../partials/footer') %>

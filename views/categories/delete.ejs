@@ -1,0 +1,20 @@
+<%- include('../partials/header') %>
+
+<div class="card narrow">
+  <h1>Delete Category</h1>
+  <% if (productCount > 0) { %>
+    <div class="alert">
+      <strong><%= category.name %></strong> still has <%= productCount %> product(s).
+      Move or delete those products before deleting this category.
+    </div>
+    <a href="/categories/<%= category._id %>" class="btn">Back</a>
+  <% } else { %>
+    <p>Are you sure you want to delete <strong><%= category.name %></strong>? This cannot be undone.</p>
+    <form action="/categories/<%= category._id %>?_method=DELETE" method="POST">
+      <button type="submit" class="btn btn-danger">Yes, Delete</button>
+      <a href="/categories/<%= category._id %>" class="btn">Cancel</a>
+    </form>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

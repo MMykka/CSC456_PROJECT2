@@ -1,0 +1,26 @@
+<!-- Shared form fields used by both new.ejs and edit.ejs -->
+<label>Name
+  <input type="text" name="name" value="<%= product.name || '' %>" maxlength="100" required>
+</label>
+<label>SKU (letters, numbers, dashes)
+  <input type="text" name="sku" value="<%= product.sku || '' %>" required>
+</label>
+<label>Price ($)
+  <input type="number" name="price" step="0.01" min="0" value="<%= product.price ?? '' %>" required>
+</label>
+<label>Quantity
+  <input type="number" name="quantity" step="1" min="0" value="<%= product.quantity ?? '' %>" required>
+</label>
+<label>Category
+  <select name="category" required>
+    <option value="">-- Select a category --</option>
+    <% categories.forEach(function (c) { %>
+      <option value="<%= c._id %>" <%= String(product.category) === String(c._id) ? 'selected' : '' %>>
+        <%= c.name %>
+      </option>
+    <% }) %>
+  </select>
+</label>
+<% if (categories.length === 0) { %>
+  <p class="muted">No categories exist yet. <a href="/categories/new">Create one first.</a></p>
+<% } %>

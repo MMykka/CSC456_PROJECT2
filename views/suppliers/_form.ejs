@@ -1,0 +1,13 @@
+<!-- Shared form fields used by both new.ejs and edit.ejs -->
+<label>Name
+  <input type="text" name="name" value="<%= supplier.name || '' %>" maxlength="100" required>
+</label>
+<label>Email
+  <input type="email" name="email" value="<%= supplier.email || '' %>" required>
+</label>
+<label>Phone
+  <input type="text" name="phone" value="<%= supplier.phone || '' %>">
+</label>
+<label>Address
+  <textarea name="address" maxlength="200" rows="2"><%= supplier.address || '' %></textarea>
+</label>

@@ -1,0 +1,7 @@
+<!-- Shared form fields used by both new.ejs and edit.ejs -->
+<label>Name
+  <input type="text" name="name" value="<%= category.name || '' %>" maxlength="50" required>
+</label>
+<label>Description
+  <textarea name="description" maxlength="200" rows="3"><%= category.description || '' %></textarea>
+</label>
